@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DriveNow | Profile</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/clear-on-logout.js"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo">DriveNow</div>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/browse">Cars</a>
+      <a href="/my-rentals">My Rentals</a>
+      <label class="ios-toggle">
+        <input id="theme-toggle" type="checkbox" />
+        <span class="ios-toggle-slider"></span>
+      </label>
+      <div class="user-menu">
+        <button class="user-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="User menu">
+          <span class="user-lines"></span>
+        </button>
+        <div class="user-dropdown" role="menu">
+          <a href="/profile" role="menuitem">Profile</a>
+          <a href="/about" role="menuitem">About</a>
+          <a href="/logout" role="menuitem">Logout</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="profile-section">
+      <div class="profile-header">
+        <h1>My Profile</h1>
+        <button id="edit-btn" class="button ghost">Edit</button>
+      </div>
+
+      <div id="profile-error" class="error-message" style="display: none;"></div>
+      <div id="profile-success" class="success-message" style="display: none;"></div>
+
+      <div class="profile-content">
+        <div class="profile-card">
+          <div class="profile-info">
+            <div class="info-group">
+              <label>Name</label>
+              <div class="info-value">
+                <span id="name-display"><%= user.name %></span>
+                <input 
+                  type="text" 
+                  id="name-input" 
+                  value="<%= user.name %>" 
+                  class="profile-input"
+                  style="display: none;"
+                />
+              </div>
+            </div>
+
+            <div class="info-group">
+              <label>Email</label>
+              <div class="info-value">
+                <span><%= user.email %></span>
+              </div>
+            </div>
+
+            <div class="info-group">
+              <label>Date of Birth</label>
+              <div class="info-value">
+                <span id="dob-display"><%= user.dob ? new Date(user.dob).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Not set' %></span>
+                <input 
+                  type="date" 
+                  id="dob-input" 
+                  value="<%= user.dob ? new Date(user.dob).toISOString().split('T')[0] : '' %>" 
+                  class="profile-input"
+                  style="display: none;"
+                />
+              </div>
+            </div>
+
+            <div class="info-group">
+              <label>Phone Number</label>
+              <div class="info-value">
+                <span id="phone-display"><%= user.phone || 'Not set' %></span>
+                <input 
+                  type="tel" 
+                  id="phone-input" 
+                  value="<%= user.phone || '' %>" 
+                  class="profile-input"
+                  placeholder="+1 234 567 8900"
+                  style="display: none;"
+                />
+              </div>
+            </div>
+
+            <div class="info-group">
+              <label>Member Since</label>
+              <div class="info-value">
+                <span><%= new Date(user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <h3>Rental Statistics</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value" id="total-rentals"><%= rentalStats ? rentalStats.total : 0 %></div>
+              <div class="stat-label">Total Rentals</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="active-rentals"><%= rentalStats ? rentalStats.active : 0 %></div>
+              <div class="stat-label">Active Rentals</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="completed-rentals"><%= rentalStats ? rentalStats.completed : 0 %></div>
+              <div class="stat-label">Completed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="edit-actions" class="edit-actions" style="display: none;">
+        <button id="save-btn" class="button primary">Save Changes</button>
+        <button id="cancel-btn" class="button ghost">Cancel</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2025 DriveNow. All rights reserved.
+  </footer>
+
+  <script src="/js/theme.js"></script>
+  <script src="/js/user-menu.js"></script>
+  <script src="/js/nav.js"></script>
+  <script src="/js/logout.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/profile-link.js"></script>
+  <script src="/js/my-rentals-link.js"></script>
+  <script src="/js/admin-link.js"></script>
+  <script src="/js/profile.js"></script>
+</body>
+</html>
+

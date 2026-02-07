@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Bookings | DriveNow Admin</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/admin/css/admin.css" />
+  <script src="/js/clear-on-logout.js"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo">DriveNow Admin</div>
+    <nav class="nav-links">
+      <a href="/admin">Dashboard</a>
+      <a href="/admin/cars">Cars</a>
+      <a href="/admin/cars/calendar">Calendar</a>
+      <a href="/admin/bookings" class="active">Bookings</a>
+      <a href="/">Back to Site</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <main class="admin-container">
+    <div class="admin-header">
+      <h1 class="admin-title">Manage Bookings</h1>
+    </div>
+
+    <!-- Filters -->
+    <div class="admin-filters">
+      <div class="filter-group">
+        <label for="filter-status">Status</label>
+        <select id="filter-status">
+          <option value="">All</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="active">Active</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-start-date">Start Date</label>
+        <input type="date" id="filter-start-date" />
+      </div>
+      <div class="filter-group">
+        <label for="filter-end-date">End Date</label>
+        <input type="date" id="filter-end-date" />
+      </div>
+      <div class="filter-group">
+        <button type="button" class="button secondary" id="apply-filters">Apply Filters</button>
+        <button type="button" class="button ghost" id="clear-filters">Clear</button>
+      </div>
+    </div>
+
+    <div id="error-message" class="error-message" style="display: none;"></div>
+    <div id="success-message" class="success-message" style="display: none;"></div>
+
+    <div class="admin-table-container">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>User</th>
+            <th>Car</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="bookings-table-body">
+          <tr>
+            <td colspan="8" class="loading">Loading bookings...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </main>
+
+  <script src="/js/theme.js"></script>
+  <script src="/admin/js/admin-bookings.js"></script>
+</body>
+</html>
+

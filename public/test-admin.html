@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Access Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button {
+            background: #c084fc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover { background: #a78bfa; }
+        pre {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Admin Access Test</h1>
+    
+    <div class="test-box">
+        <h2>Step 1: Check Token</h2>
+        <div id="token-status"></div>
+        <button onclick="checkToken()">Check Token</button>
+    </div>
+    
+    <div class="test-box">
+        <h2>Step 2: Check User Data</h2>
+        <div id="user-status"></div>
+        <button onclick="checkUser()">Check User</button>
+    </div>
+    
+    <div class="test-box">
+        <h2>Step 3: Check Admin Status from API</h2>
+        <div id="admin-status"></div>
+        <button onclick="checkAdmin()">Check Admin Status</button>
+    </div>
+    
+    <div class="test-box">
+        <h2>Step 4: Test Admin Access</h2>
+        <div id="access-status"></div>
+        <button onclick="testAdminAccess()">Test Admin Access</button>
+    </div>
+    
+    <div class="test-box">
+        <h2>Direct Admin Links</h2>
+        <div id="admin-links"></div>
+        <button onclick="generateLinks()">Generate Admin Links</button>
+    </div>
+
+    <script>
+        function checkToken() {
+            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+            const status = document.getElementById('token-status');
+            if (token) {
+                status.innerHTML = `<p class="success">✅ Token found!</p><pre>${token.substring(0, 50)}...</pre>`;
+            } else {
+                status.innerHTML = `<p class="error">❌ No token found. Please log in first.</p>`;
+            }
+        }
+        
+        function checkUser() {
+            const userStr = localStorage.getItem('user');
+            const status = document.getElementById('user-status');
+            if (userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    status.innerHTML = `
+                        <p class="success">✅ User data found!</p>
+                        <pre>${JSON.stringify(user, null, 2)}</pre>
+                        <p><strong>isAdmin:</strong> <span class="${user.isAdmin ? 'success' : 'error'}">${user.isAdmin}</span></p>
+                    `;
+                } catch (e) {
+                    status.innerHTML = `<p class="error">❌ Error parsing user data: ${e.message}</p>`;
+                }
+            } else {
+                status.innerHTML = `<p class="error">❌ No user data found.</p>`;
+            }
+        }
+        
+        async function checkAdmin() {
+            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+            const status = document.getElementById('admin-status');
+            
+            if (!token) {
+                status.innerHTML = `<p class="error">❌ No token found. Please log in first.</p>`;
+                return;
+            }
+            
+            status.innerHTML = `<p class="info">⏳ Checking...</p>`;
+            
+            try {
+                const response = await fetch('/api/me', {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const isAdmin = data.user && (data.user.isAdmin === true || data.user.isAdmin === 'true');
+                    
+                    // Update localStorage
+                    if (data.user) {
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                    }
+                    
+                    status.innerHTML = `
+                        <p class="${isAdmin ? 'success' : 'error'}">${isAdmin ? '✅' : '❌'} User is ${isAdmin ? 'ADMIN' : 'NOT ADMIN'}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    const error = await response.json();
+                    status.innerHTML = `<p class="error">❌ API Error: ${error.message || response.status}</p>`;
+                }
+            } catch (err) {
+                status.innerHTML = `<p class="error">❌ Error: ${err.message}</p>`;
+            }
+        }
+        
+        async function testAdminAccess() {
+            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+            const status = document.getElementById('access-status');
+            
+            if (!token) {
+                status.innerHTML = `<p class="error">❌ No token found. Please log in first.</p>`;
+                return;
+            }
+            
+            status.innerHTML = `<p class="info">⏳ Testing admin access...</p>`;
+            
+            try {
+                const response = await fetch('/admin/api/cars', {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                
+                if (response.ok) {
+                    status.innerHTML = `<p class="success">✅ Admin access granted! You can access admin routes.</p>`;
+                } else {
+                    const error = await response.json();
+                    status.innerHTML = `<p class="error">❌ Admin access denied: ${error.message || response.status}</p>`;
+                }
+            } catch (err) {
+                status.innerHTML = `<p class="error">❌ Error: ${err.message}</p>`;
+            }
+        }
+        
+        function generateLinks() {
+            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+            const linksDiv = document.getElementById('admin-links');
+            
+            if (!token) {
+                linksDiv.innerHTML = `<p class="error">❌ No token found. Please log in first.</p>`;
+                return;
+            }
+            
+            const adminUrl = `/admin?token=${encodeURIComponent(token)}`;
+            linksDiv.innerHTML = `
+                <p class="success">✅ Admin links generated!</p>
+                <p><strong>Direct Admin Link:</strong></p>
+                <a href="${adminUrl}" style="display: inline-block; background: #c084fc; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin: 10px 0;">
+                    🔧 Go to Admin Panel
+                </a>
+                <p style="margin-top: 20px;"><strong>Or copy this URL:</strong></p>
+                <pre>${window.location.origin}${adminUrl}</pre>
+            `;
+        }
+        
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            checkToken();
+            checkUser();
+        });
+    </script>
+</body>
+</html>
+

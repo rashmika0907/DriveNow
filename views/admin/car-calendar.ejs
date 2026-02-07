@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Availability Calendar | DriveNow Admin</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/admin/css/admin.css" />
+  <script src="/js/clear-on-logout.js"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo">DriveNow Admin</div>
+    <nav class="nav-links">
+      <a href="/admin">Dashboard</a>
+      <a href="/admin/cars">Cars</a>
+      <a href="/admin/cars/calendar" class="active">Calendar</a>
+      <a href="/admin/bookings">Bookings</a>
+      <a href="/">Back to Site</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <main class="admin-container">
+    <div class="admin-header">
+      <h1 class="admin-title">Car Availability Calendar</h1>
+      <a href="/admin/cars" class="button ghost">Back to Cars</a>
+    </div>
+
+    <div class="calendar-controls">
+      <div class="form-group" style="max-width: 300px;">
+        <label for="car-select">Select Car</label>
+        <select id="car-select">
+          <option value="">Loading cars...</option>
+        </select>
+      </div>
+      <div class="form-group" style="max-width: 200px;">
+        <label for="month-select">Month</label>
+        <input type="month" id="month-select" />
+      </div>
+      <button type="button" class="button primary" id="load-calendar">Load Calendar</button>
+    </div>
+
+    <div id="calendar-container" class="calendar-container"></div>
+  </main>
+
+  <script src="/js/theme.js"></script>
+  <script src="/admin/js/admin-calendar.js"></script>
+</body>
+</html>
+

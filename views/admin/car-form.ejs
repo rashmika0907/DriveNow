@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= editing ? 'Edit' : 'Add' %> Car | DriveNow Admin</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/admin/css/admin.css" />
+  <script src="/js/clear-on-logout.js"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo">DriveNow Admin</div>
+    <nav class="nav-links">
+      <a href="/admin">Dashboard</a>
+      <a href="/admin/cars">Cars</a>
+      <a href="/admin/cars/calendar">Calendar</a>
+      <a href="/admin/bookings">Bookings</a>
+      <a href="/">Back to Site</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <main class="admin-container">
+    <div class="admin-header">
+      <h1 class="admin-title"><%= editing ? 'Edit Car' : 'Add New Car' %></h1>
+      <a href="/admin/cars" class="button ghost">Back to Cars</a>
+    </div>
+
+    <div id="error-message" class="error-message" style="display: none;"></div>
+    <div id="success-message" class="success-message" style="display: none;"></div>
+
+    <form id="car-form" class="admin-form" enctype="multipart/form-data">
+      <input type="hidden" id="car-id" value="<%= car ? car.id : '' %>" />
+
+      <div class="form-group">
+        <label for="make">Make *</label>
+        <input type="text" id="make" name="make" required value="<%= car ? car.make : '' %>" />
+      </div>
+
+      <div class="form-group">
+        <label for="model">Model *</label>
+        <input type="text" id="model" name="model" required value="<%= car ? car.model : '' %>" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="year">Year *</label>
+          <input type="number" id="year" name="year" required min="2000" max="2030" value="<%= car ? car.year : '' %>" />
+        </div>
+
+        <div class="form-group">
+          <label for="pricePerDay">Price per Day (₹) *</label>
+          <input type="number" id="pricePerDay" name="pricePerDay" required min="0" step="0.01" value="<%= car ? car.pricePerDay : '' %>" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Car Image</label>
+        <input type="file" id="image" name="image" accept="image/jpeg,image/jpg,image/png,image/webp" />
+        <small>Max 5MB. Formats: JPG, PNG, WebP</small>
+        <% if (car && car.image) { %>
+          <div class="current-image">
+            <p>Current image:</p>
+            <img src="<%= car.image.startsWith('http') ? car.image : (car.image.startsWith('/') ? car.image : '/' + car.image) %>" alt="Current car image" style="max-width: 200px; margin-top: 10px;" />
+          </div>
+        <% } %>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="seats">Seats *</label>
+          <input type="number" id="seats" name="seats" required min="2" max="10" value="<%= car ? car.seats : '' %>" />
+        </div>
+
+        <div class="form-group">
+          <label for="transmission">Transmission *</label>
+          <select id="transmission" name="transmission" required>
+            <option value="">Select...</option>
+            <option value="Automatic" <%= car && car.transmission === 'Automatic' ? 'selected' : '' %>>Automatic</option>
+            <option value="Manual" <%= car && car.transmission === 'Manual' ? 'selected' : '' %>>Manual</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fuel">Fuel Type *</label>
+          <select id="fuel" name="fuel" required>
+            <option value="">Select...</option>
+            <option value="Petrol" <%= car && car.fuel === 'Petrol' ? 'selected' : '' %>>Petrol</option>
+            <option value="Diesel" <%= car && car.fuel === 'Diesel' ? 'selected' : '' %>>Diesel</option>
+            <option value="Electric" <%= car && car.fuel === 'Electric' ? 'selected' : '' %>>Electric</option>
+            <option value="Hybrid" <%= car && car.fuel === 'Hybrid' ? 'selected' : '' %>>Hybrid</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="mileage">Mileage</label>
+          <input type="text" id="mileage" name="mileage" placeholder="e.g., 15 km/l" value="<%= car ? car.mileage : '' %>" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fuelPolicy">Fuel Policy</label>
+        <textarea id="fuelPolicy" name="fuelPolicy" rows="2"><%= car ? car.fuelPolicy : 'Standard policy applies' %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="tags">Tags (comma-separated)</label>
+        <input type="text" id="tags" name="tags" placeholder="e.g., luxury, SUV, economy" value="<%= car && car.tags ? car.tags.join(', ') : '' %>" />
+        <small>Separate multiple tags with commas</small>
+      </div>
+
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="maintenanceMode" name="maintenanceMode" <%= car && car.maintenanceMode ? 'checked' : '' %> />
+          <span>Car is under maintenance</span>
+        </label>
+      </div>
+
+      <div class="form-group" id="maintenance-until-group" style="display: <%= car && car.maintenanceMode ? 'block' : 'none' %>;">
+        <label for="maintenanceUntil">Maintenance Until</label>
+        <input type="date" id="maintenanceUntil" name="maintenanceUntil" value="<%= car && car.maintenanceUntil ? new Date(car.maintenanceUntil).toISOString().split('T')[0] : '' %>" />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="button primary"><%= editing ? 'Update Car' : 'Create Car' %></button>
+        <a href="/admin/cars" class="button ghost">Cancel</a>
+      </div>
+    </form>
+  </main>
+
+  <script src="/js/theme.js"></script>
+  <script src="/admin/js/admin-cars.js"></script>
+</body>
+</html>
+

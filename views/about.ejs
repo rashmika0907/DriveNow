@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DriveNow | About</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="/js/clear-on-logout.js"></script>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="logo">DriveNow</div>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/browse">Cars</a>
+        <a href="/my-rentals">My Rentals</a>
+        <label class="ios-toggle">
+          <input id="theme-toggle" type="checkbox" />
+          <span class="ios-toggle-slider"></span>
+        </label>
+        <div class="user-menu">
+          <button class="user-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="User menu">
+            <span class="user-lines"></span>
+          </button>
+          <div class="user-dropdown" role="menu">
+            <a href="/profile" role="menuitem">Profile</a>
+            <a href="/about" aria-current="page" role="menuitem">About</a>
+            <a href="/logout" role="menuitem">Logout</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="hero about-hero">
+      <div class="hero-content">
+        <h1>About DriveNow</h1>
+        <p>Modern rentals with transparent policies, coverage, and always-on support.</p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-value">2000+</div>
+            <div class="stat-label">Trips served</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">15</div>
+            <div class="stat-label">Cities covered</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">Support & roadside</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="page about-content">
+      <div class="about-grid">
+        <div class="about-block">
+          <p class="eyebrow">Coverage & Policies</p>
+          <h3>Your trip, clearly covered</h3>
+          <div class="list-columns bare">
+            <div>
+              <h4>Coverage tiers</h4>
+              <ul>
+                <li>Basic: Third-party liability + roadside assistance</li>
+                <li>Standard: Adds collision damage waiver with standard excess</li>
+                <li>Premium: Reduced excess + glass/tyre coverage</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Excess & waivers</h4>
+              <ul>
+                <li>Standard excess per incident</li>
+                <li>Waiver to reduce excess to a minimal amount</li>
+                <li>Pre-auth hold auto-released after inspection</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Roadside assistance</h4>
+              <ul>
+                <li>24/7 hotline for breakdowns</li>
+                <li>Tow/repair dispatch with live updates</li>
+                <li>Replacement vehicle where available</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Pickup & drop-off</h4>
+              <ul>
+                <li>Self pick-up at hubs</li>
+                <li>Doorstep delivery in service radius</li>
+                <li>Airport curbside handoff on request</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-block">
+          <p class="eyebrow">Cancellation Policy</p>
+          <h3>Clear refunds, no surprises</h3>
+          <ul>
+            <li><strong>Free cancellation:</strong> Up to 24 hours before pickup → 100% refund (gateway fees may apply).</li>
+            <li><strong>Late cancellation:</strong> Within 24 hours of pickup → 50% refund.</li>
+            <li><strong>No-show:</strong> If pickup window (2 hours) is missed → booking marked No-Show, no refund.</li>
+            <li><strong>Early return:</strong> No refund for unused days (car is blocked for the booked duration).</li>
+          </ul>
+        </div>
+
+        <div class="about-block contact-block">
+          <p class="eyebrow">Need help?</p>
+          <h3>Contact support</h3>
+          <ul class="contact-list">
+            <li><strong>Email:</strong> support@drivenow.com</li>
+            <li><strong>Phone:</strong> +91 98765 43210</li>
+            <li><strong>Location:</strong> Chandigarh, India</li>
+            <li><strong>Hours:</strong> 24/7 for roadside and emergencies</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-section">
+        <div class="faq-header">
+          <h2 class="faq-title">Frequently Asked<br />Question</h2>
+        </div>
+        <div class="faq-accordion">
+          <details class="faq-accordion-item" open>
+            <summary>
+              <span>What documents do I need?</span>
+              <span class="faq-caret">^</span>
+            </summary>
+            <p>Valid driver's license, government ID, and payment card for the security hold.</p>
+          </details>
+          <details class="faq-accordion-item">
+            <summary>
+              <span>Can I modify or cancel my booking?</span>
+              <span class="faq-caret">v</span>
+            </summary>
+            <p>Yes. Changes are free before the start time; cancellations follow your selected policy.</p>
+          </details>
+          <details class="faq-accordion-item">
+            <summary>
+              <span>Is fuel included?</span>
+              <span class="faq-caret">v</span>
+            </summary>
+            <p>Vehicles are provided with fuel as noted in the booking. Return with the same level to avoid refuel charges.</p>
+          </details>
+          <details class="faq-accordion-item">
+            <summary>
+              <span>What if I have an issue during the trip?</span>
+              <span class="faq-caret">v</span>
+            </summary>
+            <p>Call our 24/7 support. We coordinate roadside assistance, towing, or a replacement where available.</p>
+          </details>
+          <details class="faq-accordion-item">
+            <summary>
+              <span>How do I update my billing information?</span>
+              <span class="faq-caret">v</span>
+            </summary>
+            <p>You can update your billing information in your profile settings or contact support for assistance.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      © 2025 DriveNow. All rights reserved.
+    </footer>
+
+    <script src="/js/theme.js"></script>
+    <script src="/js/user-menu.js"></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/logout.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/profile-link.js"></script>
+    <script src="/js/my-rentals-link.js"></script>
+    <script src="/js/admin-link.js"></script>
+    <script src="/js/faq.js"></script>
+  </body>
+</html>
+

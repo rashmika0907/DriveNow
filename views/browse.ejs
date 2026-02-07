@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Rental | Browse</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="/js/clear-on-logout.js"></script>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="logo">DriveNow</div>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/browse" aria-current="page">Cars</a>
+        <a href="/my-rentals">My Rentals</a>
+        <label class="ios-toggle">
+          <input id="theme-toggle" type="checkbox" />
+          <span class="ios-toggle-slider"></span>
+        </label>
+        <div class="user-menu">
+          <button class="user-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="User menu">
+            <span class="user-lines"></span>
+          </button>
+          <div class="user-dropdown" role="menu">
+            <a href="/profile" role="menuitem">Profile</a>
+            <a href="/about" role="menuitem">About</a>
+            <a href="/logout" role="menuitem">Logout</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="filters">
+        <h2>Find your car</h2>
+        <div class="tabs">
+          <button class="tab-button active" data-tab="search">Search</button>
+          <button class="tab-button" data-tab="filters">Filters</button>
+        </div>
+        <div class="tab-panels">
+          <div class="tab-panel active" id="tab-search">
+            <label class="sr-only" for="search-keyword">Search cars</label>
+            <div class="search-field">
+              <input id="search-keyword" type="text" placeholder="Search cars (make, model, type)" />
+              <button id="search-submit" class="icon-button" type="button" aria-label="Search">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
+              </button>
+              <button id="search-clear" class="icon-button" type="button" aria-label="Clear search">✕</button>
+            </div>
+          </div>
+          <div class="tab-panel" id="tab-filters">
+            <div class="filter-grid compact">
+              <label>
+                Make
+                <select id="filter-make">
+                  <option value="">Any</option>
+                  <option value="Toyota">Toyota</option>
+                  <option value="Honda">Honda</option>
+                  <option value="Tesla">Tesla</option>
+                  <option value="Ford">Ford</option>
+                  <option value="BMW">BMW</option>
+                  <option value="Kia">Kia</option>
+                  <option value="Jeep">Jeep</option>
+                </select>
+              </label>
+              <label>
+                Model
+                <select id="filter-model">
+                  <option value="">Any</option>
+                  <option value="Camry">Camry</option>
+                  <option value="Civic">Civic</option>
+                  <option value="Model 3">Model 3</option>
+                  <option value="Escape">Escape</option>
+                  <option value="Tahoe">Tahoe</option>
+                  <option value="X5">X5</option>
+                  <option value="Soul">Soul</option>
+                  <option value="Wrangler">Wrangler</option>
+                </select>
+              </label>
+              <label>
+                Min price
+                <input id="filter-min-price" type="range" min="0" max="12000" step="500" />
+                <span class="slider-value" id="min-price-value">₹0</span>
+              </label>
+              <label>
+                Max price
+                <input id="filter-max-price" type="range" min="0" max="12000" step="500" value="12000" />
+                <span class="slider-value" id="max-price-value">₹12,000</span>
+              </label>
+              <label>
+                Transmission
+                <select id="filter-transmission">
+                  <option value="">Any</option>
+                  <option value="Automatic">Automatic</option>
+                  <option value="Manual">Manual</option>
+                </select>
+              </label>
+              <label>
+                Sort
+                <select id="filter-sort">
+                  <option value="">Default</option>
+                  <option value="price-asc">Price: Low → High</option>
+                  <option value="price-desc">Price: High → Low</option>
+                </select>
+              </label>
+            </div>
+            <div class="filter-actions">
+              <button id="apply-filters" class="button primary">Apply</button>
+              <button id="reset-filters" class="button ghost">Reset</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div id="cars-grid" class="cards"></div>
+        <div class="pagination">
+          <button id="prev-page" class="button ghost">Prev</button>
+          <span id="page-info"></span>
+          <button id="next-page" class="button ghost">Next</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="/js/theme.js"></script>
+    <script src="/js/user-menu.js"></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/logout.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/profile-link.js"></script>
+    <script src="/js/my-rentals-link.js"></script>
+    <script src="/js/admin-link.js"></script>
+    <script src="/js/browse.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DriveNow | My Rentals</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/clear-on-logout.js"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo">DriveNow</div>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/browse">Cars</a>
+      <a href="/my-rentals">My Rentals</a>
+      <label class="ios-toggle">
+        <input id="theme-toggle" type="checkbox" />
+        <span class="ios-toggle-slider"></span>
+      </label>
+      <div class="user-menu">
+        <button class="user-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="User menu">
+          <span class="user-lines"></span>
+        </button>
+        <div class="user-dropdown" role="menu">
+          <a href="/profile" role="menuitem">Profile</a>
+          <a href="/about" role="menuitem">About</a>
+          <a href="/logout" role="menuitem">Logout</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="content-section">
+      <div class="container">
+        <h1>My Rentals</h1>
+        <p class="muted">View your current and past car rentals</p>
+        
+        <div id="rentals-content" style="margin-top: 32px;">
+          <div id="rentals-loading" style="display: none;">
+            <p class="muted">Loading your rentals...</p>
+          </div>
+          <div id="rentals-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2025 DriveNow. All rights reserved.
+  </footer>
+
+  <script src="/js/theme.js"></script>
+  <script src="/js/user-menu.js"></script>
+  <script src="/js/nav.js"></script>
+  <script src="/js/logout.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/profile-link.js"></script>
+  <script src="/js/my-rentals-link.js"></script>
+  <script src="/js/admin-link.js"></script>
+  <script src="/js/my-rentals.js"></script>
+</body>
+</html>
+
